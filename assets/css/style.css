@@ -64,7 +64,7 @@ a:hover{color:var(--salmon-deep)}
 
 /* eyebrow */
 .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--salmon-deep);margin-bottom:.7rem}
-.eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--salmon)}
+.eyebrow::before{display:none}
 
 /* knoppen */
 .btn{display:inline-block;font:inherit;font-weight:700;font-size:1rem;padding:.85rem 1.7rem;border-radius:999px;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:transform var(--t-fast) var(--ease),background var(--t-fast),color var(--t-fast),border-color var(--t-fast)}
