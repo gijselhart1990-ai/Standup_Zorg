@@ -92,9 +92,8 @@
 <aside class="checkout-card summary">
 <h2>Je bestelling</h2>
 <div id="checkout-summary"></div>
-<div class="sum-row"><span>Subtotaal</span><span id="sum-subtotaal">€ 0,00</span></div>
-<div class="sum-row"><span>Verzendkosten</span><span id="sum-verzend">€ 0,00</span></div>
 <div class="sum-row total"><span>Totaal</span><span id="sum-totaal">€ 0,00</span></div>
+<p style="font-size:.8rem;color:var(--muted);margin:.4rem 0 0">Inclusief verzending binnen Nederland.</p>
 <button type="submit" class="btn btn-primary pay-btn" id="pay-btn">Naar betalen</button>
 <div class="pay-methods"><span>iDEAL</span><span>Google Pay</span><span>Creditcard</span><span>PayPal</span></div>
 <p id="checkout-msg" class="checkout-msg"></p>
@@ -135,7 +134,7 @@
 <script>
 (function () {
   'use strict';
-  var VERZENDKOSTEN = 395; /* centen — moet gelijk zijn aan create-payment.js */
+  var VERZENDKOSTEN = 0; /* verzending is inbegrepen in de prijs */
 
   function euro(c) { return '€ ' + (c / 100).toFixed(2).replace('.', ','); }
 
@@ -155,8 +154,6 @@
         '<div><b>' + l.naam + '</b><br><small>' + l.aantal + ' × ' + euro(l.prijs) + '</small></div>' +
         '<span>' + euro(l.subtotaal) + '</span></div>';
     }).join('');
-    document.getElementById('sum-subtotaal').textContent = euro(sub);
-    document.getElementById('sum-verzend').textContent = VERZENDKOSTEN === 0 ? 'Gratis' : euro(VERZENDKOSTEN);
     document.getElementById('sum-totaal').textContent = euro(totaal);
     document.getElementById('pay-btn').textContent = 'Betaal ' + euro(totaal);
 
@@ -202,7 +199,7 @@
         adres: klant.adres, postcode: klant.postcode, plaats: klant.plaats,
         bestelling: lines.map(function (l) { return l.aantal + '× ' + l.naam; }).join(', '),
         aantal: String(lines.reduce(function (n, l) { return n + l.aantal; }, 0)),
-        subtotaal: euro(sub), verzendkosten: euro(VERZENDKOSTEN), totaal: euro(totaal),
+        subtotaal: euro(sub), verzendkosten: 'inbegrepen', totaal: euro(totaal),
         opmerking: klant.opmerking || '-'
       };
       var orderMail = fetch('/', {

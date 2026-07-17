@@ -9,8 +9,8 @@ const PRODUCTS = {
   dek: { naam: 'Dieren Emotie Kwartet', prijs: 2199 }
 };
 
-/* Verzendkosten in centen (heel Nederland). Zet op 0 voor gratis verzending. */
-const VERZENDKOSTEN = 395;
+/* Verzendkosten in centen. Verzending is inbegrepen in de productprijs. */
+const VERZENDKOSTEN = 0;
 
 /* Voor de e-mail/metadata: Nederlands formaat met komma. */
 function euro(cents) {
@@ -82,7 +82,7 @@ exports.handler = async function (event) {
       bestelling: bestellingStr,
       aantal: regels.reduce((n, r) => n + r.aantal, 0),
       subtotaal: euro(subtotaal),
-      verzendkosten: euro(VERZENDKOSTEN),
+      verzendkosten: 'inbegrepen',
       totaal: euro(totaal)
     }
   };

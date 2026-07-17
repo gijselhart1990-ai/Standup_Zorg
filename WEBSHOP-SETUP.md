@@ -58,9 +58,10 @@ Mollie stuurt jou daarnaast zelf ook een melding van elke geslaagde betaling, al
 - **Prijs** staat op 2 plekken (moeten gelijk zijn):
   - `assets/js/cart.js` → `PRODUCTS.dek.prijs` (in centen, nu `2199`)
   - `netlify/functions/create-payment.js` → `PRODUCTS.dek.prijs`
-- **Verzendkosten** (nu € 3,95) staan in:
-  - `netlify/functions/create-payment.js` → `VERZENDKOSTEN` (in centen)
-  - `afrekenen.html` → `VERZENDKOSTEN` in het script onderaan
+- **Verzendkosten**: verzending is inbegrepen in de prijs (`VERZENDKOSTEN = 0`).
+  Wil je toch aparte verzendkosten? Pas `VERZENDKOSTEN` (in centen) aan op twee plekken:
+  - `netlify/functions/create-payment.js`
+  - `afrekenen.html` (in het script onderaan)
 
 Geef het door, dan pas ik het voor je aan.
 

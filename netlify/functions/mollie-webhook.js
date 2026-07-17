@@ -49,7 +49,7 @@ exports.handler = async function (event) {
         bestelling: m.bestelling || '-',
         aantal: String(m.aantal || '-'),
         subtotaal: '€ ' + (m.subtotaal || '-'),
-        verzendkosten: '€ ' + (m.verzendkosten || '-'),
+        verzendkosten: m.verzendkosten || 'inbegrepen',
         totaal: '€ ' + (m.totaal || '-'),
         opmerking: klant.opmerking || '-'
       };
