@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bedankt voor je bestelling | Standup Zorg</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preload" href="assets/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.bedankt{text-align:center;max-width:620px;margin:0 auto;padding:var(--space-5) 0}
+.bedankt .check{width:84px;height:84px;border-radius:50%;background:#e8f5e9;color:#2e7d32;display:flex;align-items:center;justify-content:center;font-size:2.6rem;margin:0 auto 1.4rem}
+.bedankt h1{margin-bottom:.6rem}
+.bedankt .ordernr{display:inline-block;background:var(--tint,#f4f1ec);border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;font-weight:600;margin:.4rem 0 1.2rem}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Direct naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdmenu">
+<a class="brand" href="index.html"><img src="assets/img/logo.png" alt="" width="54" height="54">
+<span class="t"><b>Standup Zorg</b><span>Therapie · Training · Coaching</span></span></a>
+<button class="nav-toggle" aria-expanded="false" aria-controls="nav-list"><span></span><span></span><span></span><span class="sr-only" hidden>Menu</span></button>
+<ul class="nav-list" id="nav-list"><li><a href="index.html">Home</a></li><li><a href="aanbod.html">Aanbod</a></li><li><a href="organisaties.html">Voor organisaties</a></li><li><a href="over-ons.html">Over ons</a></li><li><a href="tarieven.html">Tarieven</a></li><li><a href="contact.html">Contact</a></li><li><a href="webshop.html" aria-current="page">Webshop</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="aanmelden.html">Aanmelden</a></li></ul>
+</nav></header>
+
+<main id="main">
+<section class="section"><div class="wrap">
+<div class="bedankt">
+<div class="check" aria-hidden="true">✓</div>
+<h1>Bedankt voor je bestelling!</h1>
+<div class="ordernr" id="ordernr" hidden></div>
+<p class="lead">We hebben je bestelling ontvangen. Je krijgt van ons een bevestiging per e-mail zodra de betaling is verwerkt.</p>
+<p style="color:var(--muted)">Heb je de betaling geannuleerd of is er iets misgegaan? Ga terug naar de webshop om het opnieuw te proberen, of mail <a href="mailto:info@standup-zorg.nl">info@standup-zorg.nl</a>.</p>
+<div class="btn-row" style="justify-content:center;margin-top:1.5rem">
+<a class="btn btn-primary" href="webshop.html">Terug naar de webshop</a>
+<a class="btn btn-secondary" href="index.html">Naar de homepagina</a>
+</div>
+</div>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+<div class="foot-grid">
+<div><img src="assets/img/logo.png" alt="Standup Zorg logo" width="48" height="48" style="margin-bottom:.5rem"><h2>Standup Zorg</h2><p>Wij staan op waar anderen blijven zitten. Therapie, training en coaching in Midden-Nederland.</p></div>
+<div><h3>Aanbod</h3><ul>
+<li><a href="pmt.html">Psychomotorische therapie</a></li>
+<li><a href="weerbaarheid.html">Weerbaarheid</a></li>
+<li><a href="bewegingsagogie.html">Bewegingsagogie</a></li>
+<li><a href="coaching.html">Coaching &amp; workshops</a></li></ul></div>
+<div><h3>Organisatie</h3><ul>
+<li><a href="over-ons.html">Over ons</a></li>
+<li><a href="over-ons.html#team">Team</a></li>
+<li><a href="organisaties.html">Voor organisaties</a></li>
+<li><a href="tarieven.html">Tarieven &amp; vergoedingen</a></li></ul></div>
+<div><h3>Contact</h3><ul>
+<li><a href="tel:+31657023674">06 - 570 236 74</a></li>
+<li><a href="mailto:info@standup-zorg.nl">info@standup-zorg.nl</a></li>
+<li><a href="aanmelden.html">Aanmelden</a></li>
+<li>Regio Midden-Nederland</li></ul></div>
+</div>
+<div class="foot-bottom"><span>© Standup Zorg, Alle rechten voorbehouden</span>
+<span>KvK 88657531 · BTW NL864720129B01 · AGB 90091925</span></div>
+</div></footer>
+
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script>
+(function () {
+  var order = new URLSearchParams(location.search).get('order');
+  if (order) {
+    var el = document.getElementById('ordernr');
+    el.textContent = 'Ordernummer: ' + order;
+    el.hidden = false;
+  }
+  /* Winkelmandje legen na afronden */
+  try { if (window.SZCart) { window.SZCart.clear(); } else { localStorage.removeItem('sz_cart'); } } catch (e) {}
+})();
+</script>
+</body>
+</html>

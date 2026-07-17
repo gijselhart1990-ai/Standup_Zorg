@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afrekenen | Webshop, Standup Zorg</title>
+<meta name="description" content="Rond je bestelling af en betaal veilig met iDEAL, Google Pay of creditcard.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preload" href="assets/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.checkout{padding:var(--space-4) 0 var(--space-5)}
+.checkout-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--space-4);align-items:start;max-width:1050px;margin:0 auto}
+.checkout-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:1.6rem;box-shadow:var(--shadow-s)}
+.checkout-card h2{font-size:1.2rem;margin:0 0 1rem}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.field.full{grid-column:1/-1}
+.field label{font-size:.9rem;font-weight:600}
+.field input,.field textarea{font:inherit;padding:.7rem .8rem;border:1px solid var(--line);border-radius:var(--r-m,10px);background:#fff}
+.field input:focus,.field textarea:focus{outline:2px solid var(--salmon);outline-offset:1px;border-color:var(--salmon-deep)}
+.field.invalid input,.field.invalid textarea{border-color:#c0392b;background:#fdf3f2}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.summary{position:sticky;top:1rem}
+.sum-item{display:grid;grid-template-columns:48px 1fr auto;gap:.7rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.sum-item img{border-radius:8px;object-fit:cover}
+.sum-item small{color:var(--muted)}
+.sum-row{display:flex;justify-content:space-between;padding:.35rem 0;font-size:.95rem}
+.sum-row.total{font-weight:700;font-size:1.15rem;border-top:1px solid var(--line);margin-top:.4rem;padding-top:.7rem}
+.pay-btn{width:100%;justify-content:center;font-size:1.05rem;padding:.9rem 1.5rem;margin-top:1.2rem}
+.pay-btn[disabled]{opacity:.55;cursor:not-allowed}
+.pay-methods{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.9rem;font-size:.8rem;color:var(--muted)}
+.pay-methods span{border:1px solid var(--line);border-radius:6px;padding:.2rem .5rem;background:#fff}
+.checkout-msg{margin-top:1rem;padding:.8rem 1rem;border-radius:var(--r-m,10px);font-size:.9rem;display:none}
+.checkout-msg.err{display:block;background:#fdf3f2;color:#a5281b;border:1px solid #efc9c4}
+.empty-cart{text-align:center;max-width:520px;margin:0 auto;padding:var(--space-4) 0}
+@media(max-width:800px){.checkout-grid{grid-template-columns:1fr}.summary{position:static}.field-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Direct naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdmenu">
+<a class="brand" href="index.html"><img src="assets/img/logo.png" alt="" width="54" height="54">
+<span class="t"><b>Standup Zorg</b><span>Therapie · Training · Coaching</span></span></a>
+<button class="nav-toggle" aria-expanded="false" aria-controls="nav-list"><span></span><span></span><span></span><span class="sr-only" hidden>Menu</span></button>
+<ul class="nav-list" id="nav-list"><li><a href="index.html">Home</a></li><li><a href="aanbod.html">Aanbod</a></li><li><a href="organisaties.html">Voor organisaties</a></li><li><a href="over-ons.html">Over ons</a></li><li><a href="tarieven.html">Tarieven</a></li><li><a href="contact.html">Contact</a></li><li><a href="webshop.html" aria-current="page">Webshop</a></li>
+<li class="nav-cta"><a class="btn btn-primary" href="aanmelden.html">Aanmelden</a></li></ul>
+</nav></header>
+
+<!-- Verborgen formulier zodat Netlify het herkent en bestellingen per e-mail doorstuurt -->
+<form name="bestelling" netlify netlify-honeypot="bot-field" hidden>
+<input type="text" name="ordernummer"><input type="text" name="betaalstatus"><input type="text" name="betaalmethode">
+<input type="text" name="naam"><input type="email" name="email"><input type="text" name="telefoon">
+<input type="text" name="adres"><input type="text" name="postcode"><input type="text" name="plaats">
+<input type="text" name="bestelling"><input type="text" name="aantal">
+<input type="text" name="subtotaal"><input type="text" name="verzendkosten"><input type="text" name="totaal">
+<textarea name="opmerking"></textarea><input type="text" name="bot-field">
+</form>
+
+<main id="main">
+<div class="wrap" style="padding-top:1rem"><nav aria-label="Kruimelpad" style="font-size:.88rem;color:var(--muted)"><a href="index.html" style="color:var(--muted)">Home</a> › <a href="webshop.html" style="color:var(--muted)">Webshop</a> › <span>Afrekenen</span></nav></div>
+
+<section class="checkout"><div class="wrap">
+
+<div id="empty-state" class="empty-cart" hidden>
+<h1>Je winkelmandje is leeg</h1>
+<p class="lead">Voeg eerst een product toe om af te rekenen.</p>
+<a class="btn btn-primary" href="webshop.html">Naar de webshop</a>
+</div>
+
+<div id="checkout-state" hidden>
+<h1 style="text-align:center;margin-bottom:var(--space-4)">Afrekenen</h1>
+<form id="checkout-form" novalidate>
+<div class="checkout-grid">
+
+<div class="checkout-card">
+<h2>Jouw gegevens</h2>
+<div class="field-grid">
+<div class="field full"><label for="c-naam">Naam *</label><input id="c-naam" name="naam" autocomplete="name" required></div>
+<div class="field"><label for="c-email">E-mailadres *</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+<div class="field"><label for="c-tel">Telefoon *</label><input id="c-tel" name="telefoon" type="tel" autocomplete="tel" required></div>
+<div class="field full"><label for="c-adres">Straat en huisnummer *</label><input id="c-adres" name="adres" autocomplete="street-address" required></div>
+<div class="field"><label for="c-postcode">Postcode *</label><input id="c-postcode" name="postcode" autocomplete="postal-code" required></div>
+<div class="field"><label for="c-plaats">Plaats *</label><input id="c-plaats" name="plaats" autocomplete="address-level2" required></div>
+<div class="field full"><label for="c-opm">Opmerking (optioneel)</label><textarea id="c-opm" name="opmerking" rows="3"></textarea></div>
+</div>
+<div class="hp" aria-hidden="true"><label>Niet invullen<input name="bot-field" tabindex="-1" autocomplete="off"></label></div>
+</div>
+
+<aside class="checkout-card summary">
+<h2>Je bestelling</h2>
+<div id="checkout-summary"></div>
+<div class="sum-row"><span>Subtotaal</span><span id="sum-subtotaal">€ 0,00</span></div>
+<div class="sum-row"><span>Verzendkosten</span><span id="sum-verzend">€ 0,00</span></div>
+<div class="sum-row total"><span>Totaal</span><span id="sum-totaal">€ 0,00</span></div>
+<button type="submit" class="btn btn-primary pay-btn" id="pay-btn">Naar betalen</button>
+<div class="pay-methods"><span>iDEAL</span><span>Google Pay</span><span>Creditcard</span><span>PayPal</span></div>
+<p id="checkout-msg" class="checkout-msg"></p>
+</aside>
+
+</div>
+</form>
+</div>
+
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+<div class="foot-grid">
+<div><img src="assets/img/logo.png" alt="Standup Zorg logo" width="48" height="48" style="margin-bottom:.5rem"><h2>Standup Zorg</h2><p>Wij staan op waar anderen blijven zitten. Therapie, training en coaching in Midden-Nederland.</p></div>
+<div><h3>Aanbod</h3><ul>
+<li><a href="pmt.html">Psychomotorische therapie</a></li>
+<li><a href="weerbaarheid.html">Weerbaarheid</a></li>
+<li><a href="bewegingsagogie.html">Bewegingsagogie</a></li>
+<li><a href="coaching.html">Coaching &amp; workshops</a></li></ul></div>
+<div><h3>Organisatie</h3><ul>
+<li><a href="over-ons.html">Over ons</a></li>
+<li><a href="over-ons.html#team">Team</a></li>
+<li><a href="organisaties.html">Voor organisaties</a></li>
+<li><a href="tarieven.html">Tarieven &amp; vergoedingen</a></li></ul></div>
+<div><h3>Contact</h3><ul>
+<li><a href="tel:+31657023674">06 - 570 236 74</a></li>
+<li><a href="mailto:info@standup-zorg.nl">info@standup-zorg.nl</a></li>
+<li><a href="aanmelden.html">Aanmelden</a></li>
+<li>Regio Midden-Nederland</li></ul></div>
+</div>
+<div class="foot-bottom"><span>© Standup Zorg, Alle rechten voorbehouden</span>
+<span>KvK 88657531 · BTW NL864720129B01 · AGB 90091925</span></div>
+</div></footer>
+
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script>
+(function () {
+  'use strict';
+  var VERZENDKOSTEN = 395; /* centen — moet gelijk zijn aan create-payment.js */
+
+  function euro(c) { return '€ ' + (c / 100).toFixed(2).replace('.', ','); }
+
+  function boot() {
+    var C = window.SZCart;
+    if (!C) { return setTimeout(boot, 60); }
+    var lines = C.lines();
+    var empty = document.getElementById('empty-state');
+    var state = document.getElementById('checkout-state');
+    if (!lines.length) { empty.hidden = false; state.hidden = true; return; }
+    empty.hidden = true; state.hidden = false;
+
+    var sub = C.total();
+    var totaal = sub + VERZENDKOSTEN;
+    document.getElementById('checkout-summary').innerHTML = lines.map(function (l) {
+      return '<div class="sum-item"><img src="' + l.img + '" alt="" width="48" height="48">' +
+        '<div><b>' + l.naam + '</b><br><small>' + l.aantal + ' × ' + euro(l.prijs) + '</small></div>' +
+        '<span>' + euro(l.subtotaal) + '</span></div>';
+    }).join('');
+    document.getElementById('sum-subtotaal').textContent = euro(sub);
+    document.getElementById('sum-verzend').textContent = VERZENDKOSTEN === 0 ? 'Gratis' : euro(VERZENDKOSTEN);
+    document.getElementById('sum-totaal').textContent = euro(totaal);
+    document.getElementById('pay-btn').textContent = 'Betaal ' + euro(totaal);
+
+    var form = document.getElementById('checkout-form');
+    var btn = document.getElementById('pay-btn');
+    var msg = document.getElementById('checkout-msg');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      msg.className = 'checkout-msg';
+      if (form.querySelector('[name="bot-field"]').value) return; /* honeypot */
+
+      var required = ['naam', 'email', 'telefoon', 'adres', 'postcode', 'plaats'];
+      var ok = true, klant = {};
+      required.forEach(function (n) {
+        var el = form.querySelector('[name="' + n + '"]');
+        var wrap = el.closest('.field');
+        var bad = !el.value.trim() || (n === 'email' && !/.+@.+\..+/.test(el.value));
+        wrap.classList.toggle('invalid', bad);
+        if (bad) ok = false;
+        klant[n] = el.value.trim();
+      });
+      klant.opmerking = form.querySelector('[name="opmerking"]').value.trim();
+      if (!ok) {
+        msg.className = 'checkout-msg err';
+        msg.textContent = 'Controleer de rood gemarkeerde velden.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Bezig met doorsturen…';
+
+      var items = C.lines().map(function (l) { return { id: l.id, aantal: l.aantal }; });
+      var ordernummer = 'SZ-' + Date.now().toString(36).toUpperCase();
+
+      /* 1) Bestelling per e-mail naar info@standup-zorg.nl (Netlify Forms) */
+      var velden = {
+        'form-name': 'bestelling',
+        ordernummer: ordernummer,
+        betaalstatus: 'In afwachting van betaling',
+        betaalmethode: '-',
+        naam: klant.naam, email: klant.email, telefoon: klant.telefoon,
+        adres: klant.adres, postcode: klant.postcode, plaats: klant.plaats,
+        bestelling: lines.map(function (l) { return l.aantal + '× ' + l.naam; }).join(', '),
+        aantal: String(lines.reduce(function (n, l) { return n + l.aantal; }, 0)),
+        subtotaal: euro(sub), verzendkosten: euro(VERZENDKOSTEN), totaal: euro(totaal),
+        opmerking: klant.opmerking || '-'
+      };
+      var orderMail = fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(velden).toString()
+      }).catch(function () {});
+
+      /* 2) Mollie-betaling aanmaken en doorsturen */
+      orderMail.then(function () {
+        return fetch('/.netlify/functions/create-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ordernummer: ordernummer, items: items, klant: klant })
+        });
+      }).then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && data.checkoutUrl) {
+            window.location.href = data.checkoutUrl;
+          } else {
+            throw new Error(data && data.error ? data.error : 'Onbekende fout');
+          }
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          btn.textContent = 'Betaal ' + euro(totaal);
+          msg.className = 'checkout-msg err';
+          msg.textContent = (err && err.message) ? err.message : 'Er ging iets mis. Probeer het opnieuw of mail info@standup-zorg.nl.';
+        });
+    });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

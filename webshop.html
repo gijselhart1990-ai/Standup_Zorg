@@ -40,6 +40,41 @@
 .product-usp h3{font-size:1.1rem;margin-bottom:.3rem}
 .product-usp p{color:var(--muted);font-size:.93rem;margin:0}
 .order-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:1.1rem;padding:1rem 2rem}
+/* Aantal-kiezer */
+.qty-row{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.qty-picker{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.qty-picker button{width:42px;height:42px;border:0;background:#fff;font-size:1.3rem;line-height:1;cursor:pointer;color:var(--sage-deep)}
+.qty-picker button:hover{background:var(--tint,#f4f1ec)}
+.qty-picker input{width:44px;text-align:center;border:0;font-size:1rem;font-weight:600;-moz-appearance:textfield}
+.qty-picker input::-webkit-outer-spin-button,.qty-picker input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+/* Zwevende winkelmand-knop */
+.cart-fab{position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--salmon-deep);color:#fff;border:0;box-shadow:0 8px 24px rgba(0,0,0,.22);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.cart-fab .cart-badge{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--sage-deep);color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+/* Drawer */
+.cart-drawer{position:fixed;inset:0;z-index:70;visibility:hidden;pointer-events:none}
+.cart-drawer.open{visibility:visible;pointer-events:auto}
+.cart-overlay{position:absolute;inset:0;background:rgba(20,30,25,.45);opacity:0;transition:opacity .25s}
+.cart-drawer.open .cart-overlay{opacity:1}
+.cart-panel{position:absolute;top:0;right:0;height:100%;width:min(400px,92vw);background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.18);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s ease}
+.cart-drawer.open .cart-panel{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem;border-bottom:1px solid var(--line)}
+.cart-head h2{margin:0;font-size:1.25rem}
+.cart-head button{border:0;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--muted)}
+#cart-body{flex:1;overflow-y:auto;padding:1rem 1.4rem}
+.cart-empty{color:var(--muted);text-align:center;margin-top:2rem}
+.cart-item{display:grid;grid-template-columns:56px 1fr auto auto;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.cart-item img{border-radius:10px;object-fit:cover}
+.cart-item-info{display:flex;flex-direction:column;font-size:.9rem}
+.cart-item-info b{font-size:.95rem}
+.cart-item-info span{color:var(--muted)}
+.cart-qty{display:inline-flex;align-items:center;gap:.4rem}
+.cart-qty button{width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1}
+.cart-remove{border:0;background:none;font-size:1.3rem;color:var(--muted);cursor:pointer}
+.cart-foot{padding:1.2rem 1.4rem;border-top:1px solid var(--line)}
+.cart-foot .cart-total-row{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+.cart-foot .btn{width:100%;justify-content:center}
+.cart-note{font-size:.8rem;color:var(--muted);text-align:center;margin:.7rem 0 0}
+body.cart-open{overflow:hidden}
 @media(max-width:750px){
 .product-grid{grid-template-columns:1fr;gap:2rem}
 .product-info h1{font-size:1.7rem}
@@ -88,8 +123,15 @@
 <li><span>Inhoud</span><small>24 kwartetkaarten + handleiding</small></li>
 <li><span>Ontwikkeld door</span><small>Standup Zorg</small></li>
 </ul>
-<a class="btn btn-primary order-btn" href="mailto:info@standup-zorg.nl?subject=Bestelling%20Dieren%20Emotie%20Kwartet">Bestellen via e-mail</a>
-<p style="font-size:.85rem;color:var(--muted);margin-top:.8rem">Stuur een e-mail naar info@standup-zorg.nl om te bestellen.</p>
+<div class="qty-row">
+<div class="qty-picker">
+<button type="button" onclick="var i=document.getElementById('qty-dek');i.value=Math.max(1,(parseInt(i.value,10)||1)-1)" aria-label="Minder">−</button>
+<input id="qty-dek" type="number" min="1" value="1" inputmode="numeric" aria-label="Aantal">
+<button type="button" onclick="var i=document.getElementById('qty-dek');i.value=(parseInt(i.value,10)||1)+1" aria-label="Meer">+</button>
+</div>
+</div>
+<a class="btn btn-primary order-btn" href="#" data-cart-add="dek">In winkelmand</a>
+<p style="font-size:.85rem;color:var(--muted);margin-top:.8rem">Veilig betalen met iDEAL, Google Pay of creditcard. Verzending binnen Nederland.</p>
 </div>
 
 </div>
@@ -140,6 +182,24 @@
 <div class="foot-bottom"><span>© Standup Zorg, Alle rechten voorbehouden</span>
 <span>KvK 88657531 · BTW NL864720129B01 · AGB 90091925</span></div>
 </div></footer>
+<!-- Zwevende winkelmand-knop -->
+<button class="cart-fab" data-cart-open aria-label="Winkelmandje openen">🛒<span class="cart-badge" data-cart-count hidden>0</span></button>
+
+<!-- Winkelmand-drawer -->
+<div class="cart-drawer" id="cart-drawer" aria-hidden="true" role="dialog" aria-label="Winkelmandje">
+<div class="cart-overlay" data-cart-close></div>
+<aside class="cart-panel">
+<div class="cart-head"><h2>Winkelmandje</h2><button type="button" data-cart-close aria-label="Sluiten">×</button></div>
+<div id="cart-body"></div>
+<div class="cart-foot" id="cart-foot" hidden>
+<div class="cart-total-row"><span>Totaal</span><span id="cart-total">€ 0,00</span></div>
+<a class="btn btn-primary" href="afrekenen.html">Afrekenen</a>
+<p class="cart-note">Verzendkosten worden bij het afrekenen getoond.</p>
+</div>
+</aside>
+</div>
+
+<script src="assets/js/cart.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
