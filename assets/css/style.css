@@ -236,7 +236,7 @@ legend{font-weight:700;font-size:.9rem;color:var(--sage-deep);padding-inline:.4r
 .cpanel .meta{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.22);font-size:.85rem;opacity:.9;line-height:1.9}
 
 /* footer */
-.site-footer{background:var(--sage-deep);color:#fff;margin-top:var(--space-5);padding:var(--space-5) 0 var(--space-3)}
+.site-footer{background:linear-gradient(rgba(47,84,67,.88),rgba(47,84,67,.94)),url('../img/pmt-1.jpg') center/cover no-repeat;color:#fff;margin-top:var(--space-5);padding:var(--space-5) 0 var(--space-3)}
 .site-footer a{color:#fff;text-decoration:none;opacity:.92}
 .site-footer a:hover{opacity:1;color:var(--salmon-soft)}
 .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
