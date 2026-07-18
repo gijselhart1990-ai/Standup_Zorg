@@ -183,6 +183,13 @@
         return;
       }
 
+      /* Betalen werkt alleen op de online site, niet vanaf een lokaal bestand (file://). */
+      if (location.protocol !== 'http:' && location.protocol !== 'https:') {
+        msg.className = 'checkout-msg err';
+        msg.textContent = 'Afrekenen werkt alleen op de online website (standupzorg.netlify.app), niet wanneer je dit bestand lokaal opent.';
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'Bezig met doorsturen…';
 
@@ -227,7 +234,11 @@
           btn.disabled = false;
           btn.textContent = 'Betaal ' + euro(totaal);
           msg.className = 'checkout-msg err';
-          msg.textContent = (err && err.message) ? err.message : 'Er ging iets mis. Probeer het opnieuw of mail info@standup-zorg.nl.';
+          var m = (err && err.message) || '';
+          if (/failed to fetch|networkerror|load failed|fetch/i.test(m)) {
+            m = 'Kon geen verbinding maken met de betaaldienst. Controleer je internetverbinding en probeer het opnieuw, of mail info@standup-zorg.nl.';
+          }
+          msg.textContent = m || 'Er ging iets mis. Probeer het opnieuw of mail info@standup-zorg.nl.';
         });
     });
   }
