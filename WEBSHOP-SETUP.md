@@ -28,14 +28,18 @@ De webshop met winkelmandje, afrekenpagina en betaling is gebouwd. Om **echte be
 3. Key: `MOLLIE_API_KEY` — Value: je Mollie-sleutel (begin met `test_...` om te testen).
 4. Opslaan en daarna **Deploys → Trigger deploy → Deploy site** (zodat de functie de sleutel oppikt).
 
-## Stap 3 — Bestellingen per e-mail ontvangen
+## Stap 3 — Bestellingen en aanmeldingen per e-mail ontvangen
 
-De bestelling + betaalbevestiging worden via **Netlify Forms** naar je gemaild.
+De bestelling + betaalbevestiging én websiteaanmeldingen worden via **Netlify Forms**
+naar je gemaild. **Belangrijk: Form detection staat standaard UIT** — getest op
+2026-07-20: formulier-POSTs geven nu 404 totdat je dit aanzet.
 
-1. In Netlify: **Forms** (verschijnt na de eerste deploy met het formulier — al toegevoegd).
-2. Open het formulier **bestelling → Settings → Form notifications → Add notification →
-   Email notification**.
-3. Vul in: `info@standup-zorg.nl`. Opslaan.
+1. In Netlify: **Site configuration → Forms → Enable form detection** → aanzetten.
+2. Daarna **Deploys → Trigger deploy → Deploy site** (nodig zodat Netlify de
+   formulieren `bestelling` en `aanmelding` registreert).
+3. Open daarna onder **Forms** elk formulier → **Settings → Form notifications →
+   Add notification → Email notification** → `info@standup-zorg.nl`. Opslaan.
+   Doe dit voor **beide** formulieren: `bestelling` en `aanmelding`.
 
 Vanaf nu krijg je per bestelling twee mails:
 - **In afwachting van betaling** — zodra iemand op "Betalen" klikt (met alle klantgegevens).

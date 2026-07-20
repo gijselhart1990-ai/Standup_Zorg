@@ -272,11 +272,11 @@ legend{font-weight:700;font-size:.9rem;color:var(--sage-deep);padding-inline:.4r
   .nav-list a{padding:.85rem .9rem;font-size:1.02rem}
   .nav-cta{margin:.5rem 0 0}
   .hero-grid,.split,.split.rev{grid-template-columns:1fr}
-  .g3,.g4,.team-grid,.steps,.prices,.foot-grid{grid-template-columns:repeat(2,1fr)}
+  .g3,.g4,.team-grid,.steps,.steps.s5,.prices,.foot-grid{grid-template-columns:repeat(2,1fr)}
   .route{grid-template-columns:1fr}
 }
 @media (max-width:600px){
-  .g2,.g3,.g4,.team-grid,.steps,.prices,.duo,.foot-grid{grid-template-columns:1fr}
+  .g2,.g3,.g4,.team-grid,.steps,.steps.s5,.prices,.duo,.foot-grid{grid-template-columns:1fr}
   .section{padding-block:var(--space-4)}
   .hero-note{position:static;margin-top:1rem;max-width:none}
   .btn{width:100%;text-align:center}
