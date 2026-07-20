@@ -50,6 +50,30 @@ contactgegevens) blijven ongewijzigd.
 - Webshop: Product/Offer structured data, bestel-FAQ en verzendinformatie.
 - Privacyverklaring (concept, gemarkeerd voor juridische controle) + footerlink overal.
 
+### Fase 2 — performance & webshop-galerij
+
+- Alle kwartetfoto's geoptimaliseerd naar 900px/480px JPEG (12,3 MB → ~0,5 MB);
+  zware originele PNG's uit de deploy; srcset + vaste afmetingen (geen layout shift).
+- Webshop-galerij: thumbs zijn nu toetsenbord-bedienbare `<button>`-elementen met
+  lichte previews en `data-full` voor de grote weergave.
+- Winkelmand-badge: `[hidden]`-fix (CSS display overschreef het attribuut).
+- Responsive fix: `.steps.s5` viel buiten beeld op mobiel (specificiteit vs. media query).
+
+## QA-resultaten (2026-07-20, live op standupzorg.netlify.app)
+
+| Test | Resultaat |
+|------|-----------|
+| Alle 18 routes (incl. sitemap/robots) | 200 ✓ |
+| Interne links & assets (alle pagina's) | geen kapotte verwijzingen ✓ |
+| Horizontale overflow 375px | geen ✓ (na .s5-fix) |
+| Aanmeldformulier: lege invoer | 3 velden gemarkeerd + foutstatus ✓ |
+| Winkelmand: toevoegen/verhogen/verlagen/verwijderen | correct, totalen kloppen ✓ |
+| Productgalerij: thumb-klik wisselt hoofdfoto + alt | ✓ |
+| Console errors | geen ✓ |
+| Formulier-POST naar Netlify | **404 — Form detection staat uit; actie eigenaar** |
+| Checkout zonder Mollie-sleutel | nette foutmelding ✓ (bewust; sleutel is actie eigenaar) |
+| Lighthouse | niet lokaal uitvoerbaar (geen Node); handmatig via PageSpeed Insights |
+
 ## 4. Risico's & menselijke controle
 
 - Privacyverklaring is een CONCEPT: juridisch laten controleren.
