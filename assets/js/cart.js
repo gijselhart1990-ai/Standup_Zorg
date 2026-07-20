@@ -12,7 +12,7 @@
       id: 'dek',
       naam: 'Dieren Emotie Kwartet',
       prijs: 2199, /* in centen */
-      img: 'assets/img/kwartet-doos-kaarten.png'
+      img: 'assets/img/kwartet-doos-kaarten-480.jpg'
     }
   };
 

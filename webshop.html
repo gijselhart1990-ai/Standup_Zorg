@@ -16,17 +16,18 @@
 <meta property="og:title" content="Webshop | Dieren Emotie Kwartet — Standup Zorg">
 <meta property="og:description" content="Bestel het Dieren Emotie Kwartet van Standup Zorg. Spelenderwijs emoties herkennen en benoemen, voor kinderen vanaf 4 jaar.">
 <meta property="og:url" content="https://www.standup-zorg.nl/webshop">
-<meta property="og:image" content="https://www.standup-zorg.nl/assets/img/kwartet-doos-kaarten.png">
+<meta property="og:image" content="https://www.standup-zorg.nl/assets/img/kwartet-doos-kaarten-900.jpg">
 <meta property="og:locale" content="nl_NL">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Dieren Emotie Kwartet", "image": "https://www.standup-zorg.nl/assets/img/kwartet-doos-kaarten.png", "description": "Kwartetspel waarmee kinderen vanaf 4 jaar spelenderwijs emoties leren herkennen en benoemen. 24 kwartetkaarten en handleiding, 2-4 spelers, ca. 15 minuten speeltijd.", "brand": {"@type": "Brand", "name": "Standup Zorg"}, "offers": {"@type": "Offer", "priceCurrency": "EUR", "price": "21.99", "availability": "https://schema.org/InStock", "url": "https://www.standup-zorg.nl/webshop", "shippingDetails": {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "EUR"}, "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NL"}}}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Dieren Emotie Kwartet", "image": "https://www.standup-zorg.nl/assets/img/kwartet-doos-kaarten-900.jpg", "description": "Kwartetspel waarmee kinderen vanaf 4 jaar spelenderwijs emoties leren herkennen en benoemen. 24 kwartetkaarten en handleiding, 2-4 spelers, ca. 15 minuten speeltijd.", "brand": {"@type": "Brand", "name": "Standup Zorg"}, "offers": {"@type": "Offer", "priceCurrency": "EUR", "price": "21.99", "availability": "https://schema.org/InStock", "url": "https://www.standup-zorg.nl/webshop", "shippingDetails": {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "EUR"}, "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NL"}}}}</script>
 <style>
 .product-hero{padding:var(--space-5) 0 var(--space-4)}
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);align-items:start;max-width:1100px;margin:0 auto}
 .product-gallery{display:flex;flex-direction:column;gap:1rem}
 .product-gallery picture img{width:100%;border-radius:var(--r-l);box-shadow:var(--shadow-m)}
-.product-thumbs{display:flex;gap:.75rem}
-.product-thumbs img{width:80px;height:80px;object-fit:cover;border-radius:var(--r-m,12px);border:2px solid var(--line);cursor:pointer;transition:border-color .2s}
-.product-thumbs img:hover,.product-thumbs img.active{border-color:var(--salmon-deep)}
+.product-thumbs{display:flex;gap:.75rem;flex-wrap:wrap}
+.product-thumbs button{padding:0;background:none;border:2px solid var(--line);border-radius:var(--r-m,12px);cursor:pointer;overflow:hidden;line-height:0;transition:border-color .2s}
+.product-thumbs button:hover,.product-thumbs button.active{border-color:var(--salmon-deep)}
+.product-thumbs img{width:80px;height:80px;object-fit:cover}
 .product-info{padding-top:.5rem}
 .product-info h1{font-size:2.2rem;margin-bottom:.4rem}
 .product-price{font-family:'Fraunces',Georgia,serif;font-size:1.8rem;color:var(--salmon-deep);font-weight:700;margin:.8rem 0}
@@ -101,15 +102,15 @@ body.cart-open{overflow:hidden}
 <div class="product-grid">
 
 <div class="product-gallery">
-<img id="main-img" src="assets/img/kwartet-doos-kaarten.png" alt="Dieren Emotie Kwartet doos met alle 6 emotiekaarten" style="width:100%;border-radius:var(--r-l);box-shadow:var(--shadow-m)">
+<img id="main-img" src="assets/img/kwartet-doos-kaarten-900.jpg" alt="Dieren Emotie Kwartet doos met alle 6 emotiekaarten" width="900" height="675" style="width:100%;border-radius:var(--r-l);box-shadow:var(--shadow-m)">
 <div class="product-thumbs">
-<img src="assets/img/kwartet-doos-kaarten.png" alt="Doos met kaarten" width="80" height="80" class="active" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-flatlay.png" alt="Overzicht spel en materialen" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-kaarten-zwevend.jpg" alt="Zwevende kwartetkaarten" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-speelzaal.jpg" alt="Kwartet in de speelzaal" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-hand.jpg" alt="Doosje in hand" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-selfie.jpg" alt="Sander met het kwartet" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
-<img src="assets/img/kwartet-kaarten-tafel.jpg" alt="Kwartetkaarten uitgewaaierd" width="80" height="80" onclick="document.getElementById('main-img').src=this.src;document.querySelectorAll('.product-thumbs img').forEach(i=>i.classList.remove('active'));this.classList.add('active')">
+<button type="button" class="active" data-full="assets/img/kwartet-doos-kaarten-900.jpg"><img src="assets/img/kwartet-doos-kaarten-480.jpg" alt="Doos met kaarten" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-flatlay-900.jpg"><img src="assets/img/kwartet-flatlay-480.jpg" alt="Overzicht spel en materialen" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-kaarten-zwevend.jpg"><img src="assets/img/kwartet-kaarten-zwevend-480.jpg" alt="Zwevende kwartetkaarten" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-speelzaal.jpg"><img src="assets/img/kwartet-speelzaal-480.jpg" alt="Kwartet in de speelzaal" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-hand.jpg"><img src="assets/img/kwartet-hand-480.jpg" alt="Doosje in hand" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-selfie.jpg"><img src="assets/img/kwartet-selfie-480.jpg" alt="Sander met het kwartet" width="80" height="80" loading="lazy"></button>
+<button type="button" data-full="assets/img/kwartet-kaarten-tafel.jpg"><img src="assets/img/kwartet-kaarten-tafel-480.jpg" alt="Kwartetkaarten uitgewaaierd" width="80" height="80" loading="lazy"></button>
 </div>
 </div>
 
@@ -214,5 +215,17 @@ body.cart-open{overflow:hidden}
 
 <script src="assets/js/cart.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script>
+/* Productgalerij: thumb-knop wisselt de grote afbeelding */
+document.querySelectorAll('.product-thumbs button').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var main = document.getElementById('main-img');
+    main.src = b.dataset.full;
+    main.alt = b.querySelector('img').alt;
+    document.querySelectorAll('.product-thumbs button').forEach(function (x) { x.classList.remove('active'); });
+    b.classList.add('active');
+  });
+});
+</script>
 </body>
 </html>
