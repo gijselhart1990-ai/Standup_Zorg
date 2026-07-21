@@ -4,11 +4,8 @@
    ============================================================ */
 
 /* ---------- Fonts (self-hosted, latin subset) ---------- */
-@font-face{font-family:'Fraunces';src:url('../fonts/fraunces-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Fraunces';src:url('../fonts/fraunces-latin-600-normal.woff2') format('woff2');font-weight:600;font-display:swap}
-@font-face{font-family:'DM Sans';src:url('../fonts/dm-sans-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'DM Sans';src:url('../fonts/dm-sans-latin-500-normal.woff2') format('woff2');font-weight:500;font-display:swap}
-@font-face{font-family:'DM Sans';src:url('../fonts/dm-sans-latin-700-normal.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('../fonts/bricolage-grotesque-latin.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Figtree';src:url('../fonts/figtree-latin.woff2') format('woff2');font-weight:400 700;font-display:swap}
 
 /* ---------- Tokens ---------- */
 :root{
@@ -40,8 +37,8 @@
 /* ---------- Basis ---------- */
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:'DM Sans',system-ui,sans-serif;font-size:1.0625rem;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.14;color:var(--sage-deep);margin:0 0 .6em;letter-spacing:-.01em;text-wrap:balance}
+body{margin:0;font-family:'Figtree',system-ui,sans-serif;font-size:1.0625rem;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:600;line-height:1.14;color:var(--sage-deep);margin:0 0 .6em;letter-spacing:-.01em;text-wrap:balance}
 h1{font-size:clamp(2.1rem,5vw,3.3rem)}
 h2{font-size:clamp(1.65rem,3.4vw,2.35rem)}
 h3{font-size:1.35rem}
@@ -85,7 +82,7 @@ a:hover{color:var(--salmon-deep)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;max-width:1220px;margin-inline:auto;padding:.55rem var(--gutter)}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
 .brand img{width:54px;height:54px}
-.brand .t b{display:block;font-family:'Fraunces';font-size:1.12rem;color:var(--sage-deep);line-height:1.1}
+.brand .t b{display:block;font-family:'Bricolage Grotesque';font-size:1.12rem;color:var(--sage-deep);line-height:1.1}
 .brand .t span{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--salmon-deep);font-weight:700}
 .nav-list{display:flex;align-items:center;gap:.15rem;list-style:none;margin:0;padding:0}
 .nav-list a{display:block;padding:.55rem .75rem;border-radius:10px;font-weight:500;font-size:.95rem;color:var(--muted);text-decoration:none;white-space:nowrap}
@@ -133,7 +130,7 @@ a.card{display:block;text-decoration:none;color:inherit}
 .route a{display:flex;flex-direction:column;gap:.4rem;background:var(--sage-deep);color:#fff;border-radius:var(--r-l);padding:34px 30px;text-decoration:none;box-shadow:var(--shadow-m);transition:transform var(--t-med) var(--ease)}
 .route a.alt{background:var(--salmon-deep)}
 .route a:hover{transform:translateY(-4px);color:#fff}
-.route b{font-family:'Fraunces';font-size:1.3rem}
+.route b{font-family:'Bricolage Grotesque';font-size:1.3rem}
 .route span{opacity:.9;font-size:.97rem}
 .route .go{margin-top:.7rem;font-weight:700}
 
@@ -147,7 +144,7 @@ a.card{display:block;text-decoration:none;color:inherit}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
 .steps.s5{grid-template-columns:repeat(5,1fr)}
 .step{background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:24px 22px}
-.step::before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--sage-deep);color:#fff;font-family:'Fraunces';font-weight:600;margin-bottom:.9rem}
+.step::before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--sage-deep);color:#fff;font-family:'Bricolage Grotesque';font-weight:600;margin-bottom:.9rem}
 .step h4{margin-bottom:.3rem}
 .step p{font-size:.93rem;color:var(--muted);margin:0}
 
@@ -160,12 +157,12 @@ a.card{display:block;text-decoration:none;color:inherit}
 .member h3{margin:.25rem 0 .55rem}
 .member p{font-size:.95rem;color:var(--muted)}
 .member .reg{margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
-.member .reg b{display:block;color:var(--sage-deep);font-family:'DM Sans';margin-bottom:.2rem}
+.member .reg b{display:block;color:var(--sage-deep);font-family:'Figtree';margin-bottom:.2rem}
 
 /* testimonial */
 .quote{background:linear-gradient(130deg,var(--sage) 0%,var(--sage-deep) 100%);color:#fff;border-radius:var(--r-l);padding:clamp(2rem,5vw,3.4rem);position:relative;overflow:hidden}
-.quote::before{content:"\201C";position:absolute;top:-38px;left:22px;font-family:'Fraunces';font-size:11rem;line-height:1;color:rgba(255,255,255,.14)}
-.quote blockquote{margin:0;font-family:'Fraunces';font-size:clamp(1.2rem,2.4vw,1.6rem);line-height:1.45;max-width:46ch;position:relative}
+.quote::before{content:"\201C";position:absolute;top:-38px;left:22px;font-family:'Bricolage Grotesque';font-size:11rem;line-height:1;color:rgba(255,255,255,.14)}
+.quote blockquote{margin:0;font-family:'Bricolage Grotesque';font-size:clamp(1.2rem,2.4vw,1.6rem);line-height:1.45;max-width:46ch;position:relative}
 .quote figcaption{margin-top:1.4rem;font-size:.95rem;opacity:.92}
 .quote figcaption b{display:block;font-size:1.02rem}
 
@@ -184,7 +181,7 @@ a.card{display:block;text-decoration:none;color:inherit}
 /* waarden */
 .values{display:flex;flex-wrap:wrap;gap:14px}
 .value{flex:1 1 190px;background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:18px 20px}
-.value b{font-family:'Fraunces';color:var(--sage-deep);font-size:1.08rem}
+.value b{font-family:'Bricolage Grotesque';color:var(--sage-deep);font-size:1.08rem}
 .value p{margin:.25rem 0 0;font-size:.9rem;color:var(--muted)}
 
 /* prijzen */
@@ -192,8 +189,8 @@ a.card{display:block;text-decoration:none;color:inherit}
 .price{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r-l);padding:26px 24px;box-shadow:var(--shadow-s)}
 .price .ic{width:46px;height:46px;border-radius:14px;background:var(--salmon-soft);display:grid;place-items:center;font-size:1.25rem;margin-bottom:.9rem}
 .price h3{font-size:1.18rem;margin-bottom:.2rem}
-.price .amt{font-family:'Fraunces';font-weight:600;font-size:1.8rem;color:var(--salmon-deep)}
-.price .amt small{font-family:'DM Sans';font-weight:400;font-size:.83rem;color:var(--muted)}
+.price .amt{font-family:'Bricolage Grotesque';font-weight:600;font-size:1.8rem;color:var(--salmon-deep)}
+.price .amt small{font-family:'Figtree';font-weight:400;font-size:.83rem;color:var(--muted)}
 .price p{font-size:.92rem;color:var(--muted);flex-grow:1;margin:.6rem 0 1.1rem}
 .price p strong{color:var(--sage-deep)}
 
@@ -201,7 +198,7 @@ a.card{display:block;text-decoration:none;color:inherit}
 .faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:0;margin-bottom:12px;overflow:hidden}
 .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;font-weight:700;color:var(--sage-deep);padding:18px 22px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:'Fraunces';font-size:1.5rem;color:var(--salmon-deep);transition:transform var(--t-fast)}
+.faq summary::after{content:"+";font-family:'Bricolage Grotesque';font-size:1.5rem;color:var(--salmon-deep);transition:transform var(--t-fast)}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq .a{padding:0 22px 18px;color:var(--muted);font-size:.97rem}
 
@@ -252,7 +249,7 @@ legend{font-weight:700;font-size:.9rem;color:var(--sage-deep);padding-inline:.4r
 .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
 .foot-grid h2{color:#fff;font-size:1.25rem}
 .foot-grid p{opacity:.85;font-size:.94rem;max-width:34ch}
-.foot-grid h3{color:#fff;font-family:'DM Sans';font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;opacity:.7;margin-bottom:.8rem}
+.foot-grid h3{color:#fff;font-family:'Figtree';font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;opacity:.7;margin-bottom:.8rem}
 .foot-grid ul{list-style:none;margin:0;padding:0}
 .foot-grid li{margin-bottom:.45rem;font-size:.95rem}
 .socials{display:flex;gap:.6rem;margin-top:.8rem}
