@@ -2,17 +2,21 @@
    Stuurt een bevestiging naar de klant zelf (Standup Zorg krijgt al een melding
    via Netlify Forms).
 
-   Vereist environment variable: RESEND_API_KEY
-   Zonder die sleutel doet deze functie niets en breekt er niets. */
+   Werkt met Brevo of Resend. Zet één van deze environment variables:
+     BREVO_API_KEY   (aanbevolen: gratis 300 mails/dag, EU)
+     RESEND_API_KEY
+   Zonder sleutel doet deze functie niets en breekt er niets. */
 
 'use strict';
 
-const AFZENDER = 'Standup Zorg <info@standup-zorg.nl>';
+const AFZENDER_NAAM = 'Standup Zorg';
+const AFZENDER_EMAIL = 'info@standup-zorg.nl';
 const ANTWOORD_NAAR = 'info@standup-zorg.nl';
 
 exports.handler = async function (event) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return ok(); /* nog niet geconfigureerd */
+  const brevoKey = process.env.BREVO_API_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!brevoKey && !resendKey) return ok(); /* nog niet geconfigureerd */
 
   let payload;
   try {
@@ -67,20 +71,31 @@ exports.handler = async function (event) {
   }
 
   try {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + apiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        from: AFZENDER,
-        to: [email],
-        reply_to: ANTWOORD_NAAR,
-        subject: onderwerp,
-        html: inhoud
-      })
-    });
+    if (brevoKey) {
+      await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: { 'api-key': brevoKey, 'Content-Type': 'application/json', 'accept': 'application/json' },
+        body: JSON.stringify({
+          sender: { name: AFZENDER_NAAM, email: AFZENDER_EMAIL },
+          to: [naam ? { email: email, name: naam } : { email: email }],
+          replyTo: { email: ANTWOORD_NAAR },
+          subject: onderwerp,
+          htmlContent: inhoud
+        })
+      });
+    } else {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + resendKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: `${AFZENDER_NAAM} <${AFZENDER_EMAIL}>`,
+          to: [email],
+          reply_to: ANTWOORD_NAAR,
+          subject: onderwerp,
+          html: inhoud
+        })
+      });
+    }
   } catch (err) {
     /* Bevestiging mislukt: Standup Zorg heeft de inzending al binnen via Netlify Forms */
   }
