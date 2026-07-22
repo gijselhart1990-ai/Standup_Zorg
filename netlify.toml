@@ -5,3 +5,112 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# ---------------------------------------------------------------
+# Redirects van de oude Wix-adressen naar de nieuwe pagina's.
+# 301 = permanent verhuisd, zodat Google de posities meeneemt en
+# oude links (in mails, folders, socials) blijven werken.
+# Volgorde telt: specifieke regels staan boven de wildcards.
+# ---------------------------------------------------------------
+
+# Aanbod: losse dienstpagina's
+[[redirects]]
+  from = "/aanbod/pmt"
+  to = "/pmt.html"
+  status = 301
+
+[[redirects]]
+  from = "/aanbod/weerbaarheid-1"
+  to = "/weerbaarheid.html"
+  status = 301
+
+[[redirects]]
+  from = "/aanbod/bewegingsagogie"
+  to = "/bewegingsagogie.html"
+  status = 301
+
+[[redirects]]
+  from = "/aanbod/coaching"
+  to = "/coaching.html"
+  status = 301
+
+[[redirects]]
+  from = "/diensten/weerbaarheid"
+  to = "/weerbaarheid.html"
+  status = 301
+
+# Team: losse profielpagina's bestaan niet meer, alles staat op Over ons
+[[redirects]]
+  from = "/team"
+  to = "/over-ons.html#team"
+  status = 301
+
+[[redirects]]
+  from = "/lucinda-looijenga"
+  to = "/over-ons.html#team"
+  status = 301
+
+[[redirects]]
+  from = "/sander-gijselhart"
+  to = "/over-ons.html#team"
+  status = 301
+
+[[redirects]]
+  from = "/sander-zijdewind"
+  to = "/over-ons.html#team"
+  status = 301
+
+# Tarieven & vergoedingen zijn samengevoegd tot één pagina
+[[redirects]]
+  from = "/vergoedingen"
+  to = "/tarieven.html#vergoedingen"
+  status = 301
+
+# Algemene voorwaarden: oud enkelvoud naar nieuw meervoud
+[[redirects]]
+  from = "/algemene-voorwaarde"
+  to = "/algemene-voorwaarden.html"
+  status = 301
+
+# Aparte aanmeldformulieren zijn nu één aanmeldpagina
+[[redirects]]
+  from = "/aanmelding-pmt"
+  to = "/aanmelden.html"
+  status = 301
+
+[[redirects]]
+  from = "/aanmelding-weerbaarheidstraining-groep"
+  to = "/aanmelden.html"
+  status = 301
+
+[[redirects]]
+  from = "/aanmelding-coaching"
+  to = "/aanmelden.html"
+  status = 301
+
+[[redirects]]
+  from = "/kopie-van-aanmelding-pmt"
+  to = "/aanmelden.html"
+  status = 301
+
+# Wix-webshop naar de nieuwe webshop
+[[redirects]]
+  from = "/product-page/dieren-emotie-kwartet"
+  to = "/webshop.html"
+  status = 301
+
+[[redirects]]
+  from = "/product-page/*"
+  to = "/webshop.html"
+  status = 301
+
+# Vangnet: overige oude sub-URL's naar de overzichtspagina
+[[redirects]]
+  from = "/aanbod/*"
+  to = "/aanbod.html"
+  status = 301
+
+[[redirects]]
+  from = "/diensten/*"
+  to = "/aanbod.html"
+  status = 301
