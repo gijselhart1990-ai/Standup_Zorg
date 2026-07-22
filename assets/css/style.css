@@ -195,6 +195,7 @@ a.card{display:block;text-decoration:none;color:inherit}
 .price .amt small{font-family:'Figtree';font-weight:400;font-size:.83rem;color:var(--muted)}
 .price p{font-size:.92rem;color:var(--muted);flex-grow:1;margin:.6rem 0 1.1rem}
 .price p strong{color:var(--sage-deep)}
+.price .fineprint{font-size:.78rem;color:var(--muted);line-height:1.5;margin:.8rem 0 0;padding-top:.7rem;border-top:1px solid var(--line)}
 
 /* FAQ */
 .faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:0;margin-bottom:12px;overflow:hidden}
