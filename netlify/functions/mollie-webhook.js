@@ -37,6 +37,7 @@ exports.handler = async function (event) {
 
       const velden = {
         'form-name': 'bestelling',
+        auth: process.env.FORM_SECRET || '',
         ordernummer: m.ordernummer || id,
         betaalstatus: 'BETAALD ✓',
         betaalmethode: p.method || '-',

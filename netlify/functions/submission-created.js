@@ -51,6 +51,13 @@ exports.handler = async function (event) {
     const betaald = String(d.betaalstatus || '').toUpperCase().indexOf('BETAALD') === 0;
     if (!betaald) return ok();
 
+    /* Authenticiteit: een 'bestelling'-bevestiging hoort alleen vanuit de Mollie-webhook
+       te komen. Zet FORM_SECRET in Netlify; de webhook stuurt hetzelfde geheim mee.
+       Externe POSTs zonder geldig geheim krijgen geen mail. Inert zolang FORM_SECRET
+       niet is gezet, zodat de bestaande flow blijft werken. */
+    const secret = process.env.FORM_SECRET;
+    if (secret && String(d.auth || '') !== secret) return ok();
+
     onderwerp = 'Bedankt voor je bestelling bij Standup Zorg';
     inhoud = blok(
       `Hoi${naam ? ' ' + voornaam(naam) : ''},`,
@@ -60,7 +67,7 @@ exports.handler = async function (event) {
          ${rij('Ordernummer', d.ordernummer)}
          ${rij('Bestelling', d.bestelling)}
          ${rij('Totaal', d.totaal)}
-         ${rij('Bezorgadres', [d.adres, [d.postcode, d.plaats].filter(Boolean).join('  ')].filter(Boolean).join('<br>'))}
+         ${rij('Bezorgadres', [esc(d.adres || ''), [esc(d.postcode || ''), esc(d.plaats || '')].filter(Boolean).join('  ')].filter(Boolean).join('<br>'), true)}
        </table>`,
       `<p>Vragen over je bestelling? Mail naar
        <a href="mailto:info@standup-zorg.nl">info@standup-zorg.nl</a> met je ordernummer.</p>`
@@ -111,11 +118,11 @@ function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
-function rij(label, waarde) {
+function rij(label, waarde, isHtml) {
   if (!waarde) return '';
   return `<tr>
-    <td style="padding:6px 16px 6px 0;color:#54655C;vertical-align:top">${label}</td>
-    <td style="padding:6px 0"><b>${waarde}</b></td>
+    <td style="padding:6px 16px 6px 0;color:#54655C;vertical-align:top">${esc(label)}</td>
+    <td style="padding:6px 0"><b>${isHtml ? waarde : esc(waarde)}</b></td>
   </tr>`;
 }
 
