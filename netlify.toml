@@ -6,6 +6,17 @@
 [functions]
   node_bundler = "esbuild"
 
+# Beveiligingsheaders voor alle pagina's:
+# - niet in een frame op een andere site laden (clickjacking)
+# - browser mag bestandstypes niet raden
+# - bij klikken naar andere sites alleen het domein doorgeven, niet de hele URL
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
 # ---------------------------------------------------------------
 # Redirects van de oude Wix-adressen naar de nieuwe pagina's.
 # 301 = permanent verhuisd, zodat Google de posities meeneemt en
