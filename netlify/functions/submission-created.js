@@ -26,7 +26,9 @@ exports.handler = async function (event) {
   const formulier = payload.form_name || '';
   const d = payload.data || {};
   const email = String(d.email || '').trim();
-  const naam = String(d.naam || '').trim();
+  /* Ingekort: deze mail gaat naar een adres dat iedereen kan invullen,
+     dus er mag zo min mogelijk vrije tekst van de inzender in terechtkomen. */
+  const naam = String(d.naam || '').trim().slice(0, 60);
 
   /* Zonder geldig e-mailadres valt er niets te bevestigen */
   if (!/.+@.+\..+/.test(email)) return ok();
@@ -40,7 +42,6 @@ exports.handler = async function (event) {
       `<p>Bedankt voor je bericht aan Standup Zorg. We hebben je aanmelding goed ontvangen
        en nemen <b>binnen twee werkdagen</b> contact met je op om een vrijblijvende
        kennismaking te plannen.</p>`,
-      d.bericht ? `<p style="color:#54655C;font-size:14px"><b>Je bericht:</b><br>${esc(d.bericht)}</p>` : '',
       `<p>Heb je tussendoor een vraag? Bel gerust 06 - 570 236 74 of mail naar
        <a href="mailto:info@standup-zorg.nl">info@standup-zorg.nl</a>.</p>`
     );
